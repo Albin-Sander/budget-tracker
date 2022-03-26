@@ -2,16 +2,19 @@
   <div>
     <h1>Total spent this Month: {{ totalSpent }}</h1>
     <Chart :prices="allPrices" :categories="allCategories" />
+    <ListNames :names="allContent" class="mt-10" />
   </div>
 </template>
 
 <script>
 import axios from "axios";
 import Chart from "./Chart.vue";
+import ListNames from "./ListNames.vue";
 export default {
   name: "FetchData",
   components: {
     Chart,
+    ListNames,
   },
 
   mounted() {
@@ -23,6 +26,7 @@ export default {
       totalSpent: 0,
       allPrices: [],
       allCategories: [],
+      allContent: Object,
     };
   },
 
@@ -46,6 +50,7 @@ export default {
               this.allPrices = hej;
               this.allCategories = categories;
             });
+            this.allContent = response.data;
           },
           (error) => {
             console.log(error);
